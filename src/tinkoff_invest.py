@@ -4,8 +4,6 @@ from envparse import env
 from openapi_client import openapi
 from pytz import UTC
 
-from freezegun import freeze_time
-
 env.read_envfile()
 
 client = openapi.api_client(env('TINKOFF_TOKEN'))
@@ -48,4 +46,3 @@ def get_yesterday_candle(figi: str) -> dict:
 
 if __name__ == '__main__':
     pass
-
