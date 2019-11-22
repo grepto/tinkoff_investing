@@ -29,6 +29,8 @@ def get_orderbook(figi: str, depth: int):
 
 
 def get_yesterday_candle(figi: str) -> dict:
+    """Get instrument daily yield"""
+
     now = datetime.now(tz=UTC)
 
     yesterday = now - timedelta(days=1)
