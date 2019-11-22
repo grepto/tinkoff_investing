@@ -40,9 +40,10 @@ def get_yesterday_candle(figi: str) -> dict:
     to = yesterday.replace(hour=23, minute=59, second=59, microsecond=0)
 
     candles = get_candles(figi=figi, _from=_from, to=to, interval='day')
-    yesterday_candle = [candle for candle in candles if candle['time'].date() == yesterday.date()][0]
+    yesterday_candle = [candle for candle in candles if candle['time'].date() == yesterday.date()]
 
-    return yesterday_candle
+    if yesterday_candle:
+        return yesterday_candle[0]
 
 
 if __name__ == '__main__':
