@@ -1,8 +1,11 @@
+import sys
 from datetime import datetime, timedelta
 
 from envparse import env
 from openapi_client import openapi
 from pytz import UTC
+
+SECONDS_PER_DAY = 86400
 
 env.read_envfile()
 
@@ -44,5 +47,22 @@ def get_yesterday_candle(figi: str) -> dict:
         return yesterday_candle[0]
 
 
+def get_instrument_change(figi: str, _from: datetime, to: datetime) -> dict:
+    delta = to - _from
+    interval = 'day' if delta.total_seconds() >= SECONDS_PER_DAY else '5min'
+
+    candles = get_candles(figi=figi, _from=_from, to=to, interval=interval)
+
+    open = candles[0]['o']
+    close = candles[-1]['c']
+
+    lo, hi, vol = sys.maxsize, 0, 0
+    for l, h, v in ((candle['l'], candle['h'], candle['v']) for candle in candles):
+        lo, hi = min(l, lo), max(h, hi)
+        vol += v
+
+    return dict(open=open, close=close, lo=lo, hi=hi, vol=vol)
+
+
 if __name__ == '__main__':
-    pass
+    figi = 'BBG004S686N0'  # BANEP
