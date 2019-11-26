@@ -1,6 +1,7 @@
 import pytest
 
-from src.helpers import short_name
+from src.helpers import short_name, get_percentage_diff
+
 
 @pytest.mark.parametrize(
     'name, expected',
@@ -19,3 +20,7 @@ from src.helpers import short_name
 )
 def test_short_name(name, expected):
     assert short_name(name) == expected
+
+
+def test_get_percentage_diff():
+    assert get_percentage_diff(1656.5, 1748) == 0.055236945366737095
