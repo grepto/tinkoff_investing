@@ -6,7 +6,7 @@ from envparse import env
 from openapi_client import openapi
 from pytz import UTC
 
-from src.helpers import get_percentage_diff, short_name
+from helpers import get_percentage_diff, short_name
 
 SECONDS_PER_DAY = 86400
 
@@ -90,7 +90,7 @@ def get_yesterday_market_result(curency: str) -> dict:
         instruments.append(dict(name=short_name(name),
                                 close_price=close_price,
                                 average_price=average_price,
-                                balance=balance,
+                                balance=int(balance),
                                 yesterday_change=round(change['close'] - change['open'], 2),
                                 yesterday_change_percentage=round(get_percentage_diff(change['open'], change['close']),
                                                                   3),
