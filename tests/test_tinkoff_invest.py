@@ -4,7 +4,7 @@ import pytest
 from freezegun import freeze_time
 from pytz import UTC
 
-from src.tinkoff_invest import get_yesterday_candle, get_instrument_change, get_yesterday_market_result
+from src.tinkoff_invest import get_instrument_change, get_yesterday_candle, get_yesterday_market_result
 
 portfolio = [
     {'figi': 'BBG004S686N0', 'ticker': 'BANEP', 'isin': 'RU0007976965', 'instrument_type': 'Stock', 'balance': 49.0,
