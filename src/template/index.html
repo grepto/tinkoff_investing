@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Email confirmation failure</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+  <style>
+    table.minimalistBlack {
+  border: 0px solid #8F8F8F;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.minimalistBlack td, table.minimalistBlack th {
+  border: 1px solid #8F8F8F;
+  padding: 5px 5px;
+}
+table.minimalistBlack tbody td {
+  font-size: 13px;
+}
+table.minimalistBlack thead {
+  background: #CFCFCF;
+  background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+}
+table.minimalistBlack thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+}
+table.minimalistBlack tfoot td {
+  font-size: 14px;
+}
+  </style>
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <table class="minimalistBlack">
+      <thead>
+      <tr>
+        <th>Наименование</th>
+        <th>Текущая</th>
+        <th>Средняя</th>
+        <th>Кол-во</th>
+        <th>Средства</th>
+        <th>П/У (д)</th>
+        <th>П/У</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for instrument in instruments%}
+      <tr>
+        <td>{{ instrument.name }}</td>
+        <td>{{ instrument.close_price|remove_zero_fractional }}</td>
+        <td>{{ instrument.average_price|remove_zero_fractional }}</td>
+        <td>{{ instrument.balance }}</td>
+        <td>{{ (instrument.balance * instrument.close_price)|round(2)|remove_zero_fractional }}</td>
+<!--        <td>{{ "%s (%s)"|format(instrument.yesterday_change|remove_zero_fractional, instrument.yesterday_change_percentage|format_percentage) }}</td>-->
+<!--        <td>{{ "%s (%s)"|format(instrument.expected_yield|remove_zero_fractional, instrument.expected_yield_percentage|format_percentage) }}</td>-->
+        <td>{{ "%s (%s)"|format(instrument.yesterday_change|remove_negative_from_zero_number|remove_zero_fractional, instrument.yesterday_change_percentage|remove_negative_from_zero_number|format_percentage) }}</td>
+        <td>{{ "%s (%s)"|format(instrument.expected_yield|remove_negative_from_zero_number|remove_zero_fractional, instrument.expected_yield_percentage|remove_negative_from_zero_number|format_percentage) }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+</body>
+</html>
