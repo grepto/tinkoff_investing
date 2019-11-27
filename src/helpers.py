@@ -1,13 +1,14 @@
 SHORTNAMES = {
     ' - привилегированные акции': '-П',
+    ' - акции привилегированные': '-П',
 }
 
 
 def short_name(name: str) -> str:
     for long_part, short_part in SHORTNAMES.items():
-        shorten_name = name.replace(long_part, short_part)
+        name = name.replace(long_part, short_part)
 
-    return shorten_name
+    return name
 
 
 def get_percentage_diff(a: float, b: float) -> float:
@@ -19,6 +20,22 @@ def get_percentage_diff(a: float, b: float) -> float:
     return (b - a) / a
 
 
+def remove_zero_fractional(number: float) -> str:
+    return '{:g}'.format(number)
+
+
+def format_percentage(number: float) -> str:
+    return '{:.1%}'.format(number)
+
+
+def format_thousand_separator(number: float) -> str:
+    return '{:,}'.format(number).replace(',', ' ')
+
+
+def remove_negative_from_zero_number(number: int or float) -> int or float:
+    return number if abs(number) else abs(number)
+
+
 if __name__ == '__main__':
-    # print(get_percentage_diff(1656.5, 1748))
+    print(short_name('Газпром - привилегированные акции'))
     pass
