@@ -115,4 +115,4 @@ def get_yesterday_market_result(curency: str) -> dict:
 
 
 if __name__ == '__main__':
-    pass
+    print(get_yesterday_market_result('RUB'))
